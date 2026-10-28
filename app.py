@@ -53,7 +53,7 @@ def extract(url,r):
     desc=s.find("meta",attrs={"name":re.compile("^description$",re.I)})
     canon_tag=s.find("link",rel="canonical")
     structured=[]
-    for node in s.find_all("script",attrs={"type":re.compile(r"ld\\+json",re.I)}):
+    for node in s.find_all("script",attrs={"type":re.compile(r"ld\+json",re.I)}):
         try:
             structured.append(json.loads(node.string or node.get_text()))
         except Exception:
@@ -75,15 +75,15 @@ def extract(url,r):
     assets.extend({"type":"json-ld","data":item} for item in structured)
     for n in s(["script","style","noscript","svg","template"]):
         n.decompose()
-    text=s.get_text("\\n",strip=True)
+    text=s.get_text("\n",strip=True)
     return {"url":str(r.url),"status":r.status_code,"content_type":ct,"title":title,
         "description":desc.get("content","") if desc else "",
         "canonical_url":urljoin(url,canon_tag.get("href")) if canon_tag and canon_tag.get("href") else "",
         "language":s.html.get("lang","") if s.html else "",
         "headings":{f"h{i}":[x.get_text(" ",strip=True) for x in s.find_all(f"h{i}")[:60]] for i in range(1,7)},
-        "word_count":len(re.findall(r"\\b\\w+\\b",text)),"text":text[:80000],
-        "emails":sorted(set(re.findall(r"(?i)\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b",html))),
-        "phone_candidates":sorted(set(re.findall(r"(?<!\\w)(?:\\+?\\d[\\d\\s().-]{7,}\\d)(?!\\w)",text)))[:60],
+        "word_count":len(re.findall(r"\b\w+\b",text)),"text":text[:80000],
+        "emails":sorted(set(re.findall(r"(?i)\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b",html))),
+        "phone_candidates":sorted(set(re.findall(r"(?<!\w)(?:\+?\d[\d\s().-]{7,}\d)(?!\w)",text)))[:60],
         "social_profiles":list({x["url"]:x for x in socials}.values()),
         "links":list({x["url"]:x for x in links}.values()),"assets":assets[:250],
         "fetched_at":datetime.now(timezone.utc).isoformat(),"bytes":len(r.content)}
