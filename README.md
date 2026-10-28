@@ -1,6 +1,6 @@
 # Webscrapperzz Intelligence
 
-A responsive crawler and website-recovery research tool for public websites.
+A responsive crawler and website-recovery research tool for public websites, with a polished multi-view workspace.
 
 ## Current capabilities
 
@@ -10,7 +10,7 @@ A responsive crawler and website-recovery research tool for public websites.
 - Record HTTP failures and crawl errors; export JSON, CSV, and Markdown reports.
 - Inspect a dead or broken site's DNS and HTTP/HTTPS responses without requiring its hostname to resolve first.
 - Query the Internet Archive Wayback Machine for closest snapshots and historical page candidates.
-- Dashboard includes both **Start deep crawl** and **Recover a dead / broken site** actions.
+- Responsive application shell with sidebar navigation, mobile drawer, overview metrics, deep crawl workspace, site recovery report, job history filters, and API guide.\n- Standard result tabs for pages, contacts, social profiles, assets/structured data, and errors.\n- Smooth page transitions, reduced-motion support, keyboard focus states, accessible labels, and responsive mobile tables.\n- Dashboard includes both **Start deep crawl** and **Recover a dead / broken site** workflows.
 - FastAPI endpoints with interactive API docs at `/docs`.
 
 ## Run locally
