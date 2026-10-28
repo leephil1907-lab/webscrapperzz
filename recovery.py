@@ -44,7 +44,7 @@ def public_addresses(host, port):
 async def archive_lookup(client, target):
     result = {"available": False, "snapshot_url": None, "timestamp": None, "snapshots": []}
     try:
-        endpoint = "https://archive.org/wayback/available?url=" + quote(target, safe=":/?=&")
+        endpoint = "https://archive.org/wayback/available?url=" + quote(target, safe=":/?")
         response = await client.get(endpoint)
         if response.status_code == 200:
             closest = response.json().get("archived_snapshots", {}).get("closest", {})
