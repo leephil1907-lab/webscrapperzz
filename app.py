@@ -133,3 +133,8 @@ async def export(jid:str,format:str=Query("json",pattern="^(json|csv|markdown)$"
     lines=[f"# Crawl report: {j.get('root_url',j['url'])}",f"Pages: {len(j['pages'])}",""]
     for p in j["pages"]: lines += [f"## {p['title'] or p['url']}",f"URL: {p['url']}",f"HTTP: {p['status']}",f"Description: {p['description']}","",p["text"][:4000],""]
     return Response("\n".join(lines),media_type="text/markdown",headers={"Content-Disposition":f'attachment; filename="crawl-{jid}.md"'})
+
+
+# Recovery and diagnostics endpoints are kept in a separate module for maintainability.
+from recovery import router as recovery_router
+app.include_router(recovery_router)
